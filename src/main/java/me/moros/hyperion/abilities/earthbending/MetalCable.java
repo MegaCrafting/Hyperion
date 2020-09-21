@@ -131,10 +131,10 @@ public class MetalCable extends MetalAbility implements AddonAbility {
 			}
 			direction = GeneralMethods.getDirection(entityToMove.getLocation(), targetLocation).normalize();
 			if (distance > 3) {
-				entityToMove.setVelocity(direction.multiply(0.8));
+				GeneralMethods.setVelocity(this, entityToMove, direction.multiply(0.8));
 			} else {
 				if (target.getType() == CableTarget.Type.ENTITY) {
-					entityToMove.setVelocity(new Vector());
+					GeneralMethods.setVelocity(this, entityToMove,new Vector());
 					if (target.getEntity() instanceof FallingBlock) {
 						FallingBlock fb = (FallingBlock) target.getEntity();
 						Location tempLocation = fb.getLocation().add(0, 0.5, 0);
@@ -146,9 +146,9 @@ public class MetalCable extends MetalAbility implements AddonAbility {
 					return;
 				} else {
 					if (distance <= 3 && distance > 1.5) {
-						entityToMove.setVelocity(direction.multiply(0.35));
+						GeneralMethods.setVelocity(this, entityToMove,direction.multiply(0.35));
 					} else {
-						player.setVelocity(new Vector(0, 0.5, 0));
+						GeneralMethods.setVelocity(this, player, new Vector(0, 0.5, 0));
 						remove();
 						return;
 					}
@@ -175,7 +175,7 @@ public class MetalCable extends MetalAbility implements AddonAbility {
 		}
 
 		Vector direction = GeneralMethods.getDirection(location, targetLocation).normalize();
-		target.getEntity().setVelocity(direction.multiply(blockSpeed));
+		GeneralMethods.setVelocity(this, target.getEntity(), direction.multiply(blockSpeed));
 		remove();
 	}
 
